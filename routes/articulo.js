@@ -1,6 +1,6 @@
 /* un Ejemplo  de como se veria la ruta listar - modelo del  articulo*/
 const routerx = require('express-promise-router');
-const articuloController = require('../controllers/ArticuloController');
+const articuloController = require('../controllers/articuloController');
 const auth = require('../middlewares/auth');
 
 const router = routerx();
