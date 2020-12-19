@@ -15,9 +15,10 @@ exports.add = (req, res) =>{
                 nombre: req.body.nombre,
                 descripcion: req.body.descripcion,
                 estado: req.body.estado,
-                categoriaId: req.body.categoriaId
+                categoriaId: req.body.categoriaId,
+                codigo: req.body.codigo
             }).then(function(){
-                res.status(200).send({nombre:req.body.nombre, descripcion:req.body.descripcion, estado:req.body.estado});;
+                res.status(200).send({nombre:req.body.nombre, descripcion:req.body.descripcion, estado:req.body.estado,codigo:req.body.codigo});;
             });
         }
         else{
@@ -30,16 +31,20 @@ exports.add = (req, res) =>{
 
 exports.update = async (req,res,next) => {
     try{
-        const Articulo = await db.Categoria.findOne({where:{nombre:req.body.nombre}});
+        const Articulo = await db.Articulo.findOne({where:{id:req.body.id}});
         if (Articulo){
-            const Articulo = await db.Articulo.update({descripcion:req.body.descripcion},
+            const Articulo = await db.Articulo.update(
+                {
+                    nombre:req.body.nombre,
+                    descripcion:req.body.descripcion,
+                    codigo:req.body.codigo,
+                },
                 {
                 where: {
-                    nombre:req.body.nombre
-                },
+                    id:req.body.id                },
                 //returning; true
             });
-            res.status(200).json(category);
+            res.status(200).json(Articulo);
         }else{
             res.status(404).send({message:'category not found.'})
         }
@@ -51,12 +56,12 @@ exports.update = async (req,res,next) => {
 
 exports.activate = async (req,res,next) => {
     try{
-        const Articulo = await db.Articulo.findOne({where:{nombre:req.body.nombre}});
+        const Articulo = await db.Articulo.findOne({where:{id:req.body.id}});
         if (Articulo){
             const Articulo = await db.Articulo.update({estado:1},
                 {
                 where: {
-                    nombre:req.body.nombre
+                    id:req.body.id
                 },
                 //returning; true
             });
@@ -72,12 +77,12 @@ exports.activate = async (req,res,next) => {
 
 exports.deactivate = async (req,res,next) => {
     try{
-        const Articulo = await db.Articulo.findOne({where:{nombre:req.body.nombre}});
+        const Articulo = await db.Articulo.findOne({where:{id: req.body.id}});
         if (Articulo){
             const Articulo = await db.Articulo.update({estado:0},
                 {
                 where: {
-                    nombre:req.body.nombre
+                    id:req.body.id
                 },
                 //returning; true
             });

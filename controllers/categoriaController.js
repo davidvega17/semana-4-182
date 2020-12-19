@@ -29,12 +29,12 @@ exports.add = (req, res) =>{
 
 exports.update = async (req,res,next) => {
     try{
-        const category = await db.Categoria.findOne({where:{nombre:req.body.nombre}});
+        const category = await db.Categoria.findOne({where:{id:req.body.id}});
         if (category){
             const category = await db.Categoria.update({descripcion:req.body.descripcion},
                 {
                 where: {
-                    nombre:req.body.nombre
+                    nombre:req.body.id
                 },
                 //returning; true
             });
@@ -50,12 +50,12 @@ exports.update = async (req,res,next) => {
 
 exports.activate = async (req,res,next) => {
     try{
-        const category = await db.Categoria.findOne({where:{nombre:req.body.nombre}});
+        const category = await db.Categoria.findOne({where:{id:req.body.id}});
         if (category){
             const category = await db.Categoria.update({estado:1},
                 {
                 where: {
-                    nombre:req.body.nombre
+                    id:req.body.id
                 },
                 //returning; true
             });
@@ -71,12 +71,12 @@ exports.activate = async (req,res,next) => {
 
 exports.deactivate = async (req,res,next) => {
     try{
-        const category = await db.Categoria.findOne({where:{nombre:req.body.nombre}});
+        const category = await db.Categoria.findOne({where:{id:req.body.id}});
         if (category){
             const category = await db.Categoria.update({estado:0},
                 {
                 where: {
-                    nombre:req.body.nombre
+                    id:req.body.id
                 },
                 //returning; true
             });
